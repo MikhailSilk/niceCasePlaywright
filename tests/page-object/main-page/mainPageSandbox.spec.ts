@@ -55,41 +55,10 @@ test('Open rasprodazha', async ({ page }) => {
     */
 });
 
-
-test('avito search', async ({ page }) => {
-
-    //   const browser = await chromium.launch({
-    //     headless: false,  // Открываем браузер в графическом режиме
-    //     devtools: true    // Открываем DevTools
-    //   });
-    //   const context = await browser.newContext();
-    await page.goto('https://www.avito.ru/', { waitUntil: 'domcontentloaded' });
-
-
-    // await page.goto('https://www.avito.ru/', { waitUntil: 'domcontentloaded' });
-    await page.waitForTimeout(randomInt(2000, 5000));
-    await page.reload();
-
-    await page.waitForTimeout(randomInt(2000, 5000));
-    const niceSearch = page.getByPlaceholder('Поиск по объявлениям');
-    log(await niceSearch.all());
-    await niceSearch.click();
-
-    // await niceSearch.fill('Apple');
-    await page.keyboard.type('Apple');
-
-    await page.waitForTimeout(randomInt(2000, 5000));
-    await page.getByRole('button', { name: 'Найти' }).click();
-    // await niceSearch.press('Enter');
-
-    // Make sure the list only has one todo item.
-    await expect(page).toHaveURL(`https://www.avito.ru/all?q=Apple`);
-});
-
 test('Test', async ({ page }) => {
     await page.goto('https://nice-case.ru/', { waitUntil: "domcontentloaded" });
     let parentLocator = `//div[@class="menu-only"]`;
-
+    // await page.waitForTimeout(randomInt(2000, 5000));
     const pageTest = new MainPage(page);
     // await pageTest.clickBannerItemByIndex(5);
     // await pageTest.clickBannerButtonByLabel(`Выбрать в каталоге`, 5);
