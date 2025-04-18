@@ -35,5 +35,5 @@ test (`Open MacBook filter in "Лучшие предложения" block `, asy
     console.log("test");
 })
 
-test (`Test`, async ({page}) => {    
-})
+test (`Test`, async ({page}) => {
+}) 

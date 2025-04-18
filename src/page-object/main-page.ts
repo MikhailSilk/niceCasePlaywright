@@ -1,5 +1,7 @@
 import { test, expect, Locator } from '@playwright/test';
 import { AbstractPage } from '../components/abstract-page';
+import { BlockList } from 'net';
+import { Catalog } from '../components/catalog';
 
 export enum MainPageBlocks {
     /** Блок с баннером и основными категориями */
@@ -29,6 +31,7 @@ export enum MainPageBlocks {
 // console.log(` ` + (await .all()).length);
 export class MainPage extends AbstractPage {
     mainBannerLocator = this.contentContainerLocator.locator(`.top_slider_wrapp`);
+    catalogLocator: Catalog = new Catalog(this.contentContainerLocator.locator(`.catalog_block`));
 
     async clickBannerItemByIndex(bannerSwiperIndex: number): Promise<void> {
         const bannerSwiperLocator = this.mainBannerLocator.getByLabel(`Go to slide ${bannerSwiperIndex}`);
@@ -61,5 +64,9 @@ export class MainPage extends AbstractPage {
     }
     async getCurrentBannerItem(): Promise<Locator> {
         return this.mainBannerLocator.locator(`.swiper-slide-active`);
+    }
+    async getCatalogElement(elementsPath: string, blockLabel: MainPageBlocks):Promise<void> {
+        await this.navigateToBlock(blockLabel);      
+        await this.catalogLocator.clickCatalogItem(elementsPath);
     }
 }

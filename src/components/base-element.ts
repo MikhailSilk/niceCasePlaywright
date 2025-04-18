@@ -1,19 +1,22 @@
 import { test, expect, Locator } from '@playwright/test';
 
 export class BaseElement {
-    locatorElement: Locator;
+    elementLocator: Locator;
+    parentContainerLocator: Locator;
 
-    constructor(    locatorElement: Locator,
-        parentContainerLocator?: Locator,) {
-            this.locatorElement = locatorElement;
+    constructor(    elementLocator: Locator, parentContainerLocator?: Locator) {
+            this.elementLocator = elementLocator;
+            if (parentContainerLocator){
+                this.parentContainerLocator = parentContainerLocator;
+            }
     }
 
-    public get getLocatorElement(): Locator {
-        return this.locatorElement;
+    public get getElementLocator(): Locator {
+        return this.elementLocator;
     }
 
-    public set setLocatorElement(locatorElement: Locator) {
-        this.locatorElement = locatorElement;
+    public set setElementLocator(elementLocator: Locator) {
+        this.elementLocator = elementLocator;
     }
 
 

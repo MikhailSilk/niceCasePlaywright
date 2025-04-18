@@ -63,8 +63,11 @@ test('Test', async ({ page }) => {
     // await pageTest.clickBannerItemByIndex(5);
     // await pageTest.clickBannerButtonByLabel(`Выбрать в каталоге`, 5);
     let test = `//*[@title = "Apple"]`; //clickItemInBlock
+
     await pageTest.clickItemInBlock(test, MainPageBlocks.CATALOG_SECTIONS);
     await pageTest.navigateToBlock(MainPageBlocks.CUSTOM_CATALOG_2);
+    // await pageTest.clickItemInBlock(`:text-is("Apple Watch")`, MainPageBlocks.CUSTOM_CATALOG_2);
+    // await pageTest.getCatalogElement(`Apple Watch series 10 46 мм корпус из алюминия цвета «чёрный глянец» спортивный ремешок черного цвета`, MainPageBlocks.CUSTOM_CATALOG_2);
     // Выбрать в каталоге	
     // let test = page.locator(`${parentLocator}//*[@href="/uslugi/"]`);
     // let test = page.locator(`${parentLocator}//*[@href="/sale/"]`);
