@@ -1,7 +1,9 @@
 import { test, expect, Locator } from '@playwright/test';
-import { AbstractPage } from '../../common-component/abstract-page';
+import { AbstractPage } from '../components/abstract-page';
 
 export enum MainPageBlocks {
+    /** Блок с баннером и основными категориями */
+    BIG_BANNER_INDEX = `BIG_BANNER_INDEX`,
     /** Блок `Популярные категории` */
     CATALOG_SECTIONS = `CATALOG_SECTIONS`,
     /** Блок `Лучшие предложения` */

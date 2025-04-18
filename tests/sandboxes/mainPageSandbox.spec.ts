@@ -2,7 +2,7 @@ import { test, expect, webkit } from '@playwright/test';
 import { log } from 'console';
 import { randomInt } from 'crypto';
 import { chromium } from 'playwright';
-import { MainPage, MainPageBlocks } from './main-page';
+import { MainPage, MainPageBlocks } from '../../src/page-object/main-page';
 
 test('Open main pages', async ({ page }) => {
     await page.goto('https://playwright.dev/');
