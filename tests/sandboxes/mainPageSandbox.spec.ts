@@ -13,8 +13,7 @@ test('Open main pages', async ({ page }) => {
 test('nice sale', async ({ page }) => {
     await page.goto('https://nice-case.ru/', { waitUntil: "domcontentloaded" });
     let parentLocator = `//div[@class="menu-only"]`;
-    let test = page.locator(`${parentLocator}//*[@href="/uslugi/"]`);
-    // let test = page.locator(`${parentLocator}//*[@href="/sale/"]`);
+    let test = page.locator(`${parentLocator}//*[@href="/sale/"]`);
     log((await test.all()).length);
     await test.hover();
     await expect(page).toHaveURL('https://nice-case.ru/sale/');
@@ -36,6 +35,7 @@ test('Open rasprodazha', async ({ page }) => {
     let test = await page.locator(`//a[@class="catalog-card" and @href = "/catalog/rasprodazha/"]`);
     await test.click();
     await expect(page).toHaveURL('https://nice-case.ru/catalog/rasprodazha/');
+    // let test = page.locator(`${parentLocator}//*[@href="/uslugi/"]`);
     /*   
     await page.goto('https://nice-case.ru/', { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(2342);
