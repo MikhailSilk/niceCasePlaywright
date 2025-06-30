@@ -1,8 +1,8 @@
-import { test, expect, webkit } from '@playwright/test';
 import { log } from 'console';
 import { randomInt } from 'crypto';
 import { chromium } from 'playwright';
 import { MainPage, MainPageBlocks } from '../../src/page-object/main-page';
+import { test, expect, webkit } from '@playwright/test';
 
 test('Open main pages', async ({ page }) => {
     await page.goto('https://playwright.dev/');
@@ -14,7 +14,6 @@ test('nice sale', async ({ page }) => {
     await page.goto('https://nice-case.ru/', { waitUntil: "domcontentloaded" });
     let parentLocator = `//div[@class="menu-only"]`;
     let test = page.locator(`${parentLocator}//*[@href="/sale/"]`);
-    log((await test.all()).length);
     await test.click();
     await expect(page).toHaveURL('https://nice-case.ru/sale/');
 });
@@ -56,16 +55,26 @@ test('Open rasprodazha', async ({ page }) => {
 });
 
 test('Test', async ({ page }) => {
+    await page.goto('https://nice-case.ru/sale', { waitUntil: "domcontentloaded" });
+    let test1 = page.locator(`.${MainPageBlocks.CUSTOM_CATALOG_2}`);
+    console.log(await test1.count());
     await page.goto('https://nice-case.ru/', { waitUntil: "domcontentloaded" });
-    let parentLocator = `//div[@class="menu-only"]`;
-    // await page.waitForTimeout(randomInt(2000, 5000));
     const pageTest = new MainPage(page);
+    
+    console.log(await test1.count());
+    
+    await test1.scrollIntoViewIfNeeded();
+    console.log(await test1.count());
+    
+    await pageTest.navigateToBlock(MainPageBlocks.CUSTOM_CATALOG_2);
+    await expect(page).toHaveURL('https://nice-case.ru/');
+    // let parentLocator = `//div[@class="menu-only"]`;
+    // let test = `//*[@title = "Apple"]`; //clickItemInBlock
+
+    // await pageTest.clickItemInBlock(test, MainPageBlocks.CATALOG_SECTIONS);
     // await pageTest.clickBannerItemByIndex(5);
     // await pageTest.clickBannerButtonByLabel(`Выбрать в каталоге`, 5);
-    let test = `//*[@title = "Apple"]`; //clickItemInBlock
-
-    await pageTest.clickItemInBlock(test, MainPageBlocks.CATALOG_SECTIONS);
-    await pageTest.navigateToBlock(MainPageBlocks.CUSTOM_CATALOG_2);
+    // await page.waitForTimeout(randomInt(2000, 5000));
     // await pageTest.clickItemInBlock(`:text-is("Apple Watch")`, MainPageBlocks.CUSTOM_CATALOG_2);
     // await pageTest.getCatalogElement(`Apple Watch series 10 46 мм корпус из алюминия цвета «чёрный глянец» спортивный ремешок черного цвета`, MainPageBlocks.CUSTOM_CATALOG_2);
     // Выбрать в каталоге	

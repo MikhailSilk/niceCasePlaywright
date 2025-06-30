@@ -65,7 +65,7 @@ export class MainPage extends AbstractPage {
     async getCurrentBannerItem(): Promise<Locator> {
         return this.mainBannerLocator.locator(`.swiper-slide-active`);
     }
-    async getCatalogElement(elementText: string):Promise<void> {
+    async clickCatalogElement(elementText: string):Promise<void> {
         await this.navigateToBlock(MainPageBlocks.CUSTOM_CATALOG_2);      
         await this.catalogLocator.clickCatalogItem(elementText);
     }
