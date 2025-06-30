@@ -15,7 +15,7 @@ test('nice sale', async ({ page }) => {
     let parentLocator = `//div[@class="menu-only"]`;
     let test = page.locator(`${parentLocator}//*[@href="/sale/"]`);
     log((await test.all()).length);
-    await test.hover();
+    await test.click();
     await expect(page).toHaveURL('https://nice-case.ru/sale/');
 });
 
