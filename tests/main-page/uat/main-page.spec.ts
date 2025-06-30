@@ -31,6 +31,7 @@ test (`Open MacBook filter in "Лучшие предложения" block `, asy
     await page.goto('https://nice-case.ru/', { waitUntil: "domcontentloaded" });
     const mainPage = new MainPage(page);
     await mainPage.clickItemInBlock(`:text-is("Apple Watch")`, MainPageBlocks.CUSTOM_CATALOG_2);
+    await mainPage.
     await expect(page).toHaveTitle("Ноутбук Apple MacBook")
     console.log("test");
 })

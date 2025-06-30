@@ -59,14 +59,14 @@ export class MainPage extends AbstractPage {
     }
     async clickItemInBlock(elementsPath: string, blockLabel: MainPageBlocks): Promise<void> {
         await this.navigateToBlock(blockLabel);
-        let itemLocator =  this.contentContainerLocator.locator(`.${blockLabel}`).locator(`${elementsPath}`)
+        const itemLocator =  this.contentContainerLocator.locator(`.${blockLabel}`).locator(`${elementsPath}`)
         await itemLocator.click();   
     }
     async getCurrentBannerItem(): Promise<Locator> {
         return this.mainBannerLocator.locator(`.swiper-slide-active`);
     }
-    async getCatalogElement(elementsPath: string, blockLabel: MainPageBlocks):Promise<void> {
-        await this.navigateToBlock(blockLabel);      
-        await this.catalogLocator.clickCatalogItem(elementsPath);
+    async getCatalogElement(elementText: string):Promise<void> {
+        await this.navigateToBlock(MainPageBlocks.CUSTOM_CATALOG_2);      
+        await this.catalogLocator.clickCatalogItem(elementText);
     }
 }
