@@ -31,6 +31,7 @@ test(`Open fourth ads in main banner and click on the button "Выбрать в 
 test (`Open MacBook filter in "Лучшие предложения" block `, async ({page}) => {
     await page.goto('https://nice-case.ru/', { waitUntil: "domcontentloaded" });
     const mainPage = new MainPage(page);
+    let a= 0;
     const blockLocator =  mainPage.contentContainerLocator.locator(`.CUSTOM_CATALOG_2`);
     await mainPage.clickItemInBlock(`:text-is("Apple Watch")`, MainPageBlocks.CUSTOM_CATALOG_2);
     await expect(blockLocator).toContainText("Apple Watch series 10 46 мм корпус из алюминия цвета «чёрный глянец» спортивный ремешок черного цвета");
