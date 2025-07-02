@@ -25,6 +25,7 @@ test(`Open the first main banner ads`, async ({ page }) => {
 test(`Open fourth ads in main banner and click on the button "Выбрать в каталоге"`, async ({ page }) => {
     await page.goto('https://nice-case.ru/', { waitUntil: "domcontentloaded" });
     const mainPage = new MainPage(page);
+    const mainPage1 = new MainPage(page);
     await mainPage.clickBannerButtonByLabel(`Выбрать в каталоге`,4);
     await expect(page).toHaveURL(`https://nice-case.ru/catalog/sumki_i_chemodany/ryukzaki_i_portfeli/`);
 })
