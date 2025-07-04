@@ -15,5 +15,8 @@
     "@types/node": "^22.10.6",
     "allure-commandline": "^2.34.1",
     "allure-playwright": "^3.3.0"
+  },
+  "dependencies": {
+    "testit-adapter-playwright": "^3.2.6-TMS-5.3"
   }
 }
