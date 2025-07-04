@@ -1,5 +1,6 @@
 name: Optional deploy flow
 on:
+  workflow_dispatch:
   push:
     branches: [ prod ]
   pull_request:
