@@ -21,8 +21,8 @@ jobs:
     - name: Install allure report
       run: npm install -D allure-playwright
     - name: Run Playwright tests
-      env: # Or as an environment variable
-        super_secret: ${{ secrets.TMS_PRIVATE_TOKEN }}
+      env: 
+        TMS_PRIVATE_TOKEN: ${{ secrets.TMS_PRIVATE_TOKEN }}
       run: npx playwright test fast.spec.ts
     - name: Allure report
       run: npm run allure:generate
