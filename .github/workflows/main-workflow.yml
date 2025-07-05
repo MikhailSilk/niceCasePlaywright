@@ -20,10 +20,11 @@ jobs:
       run: npx playwright install --with-deps
     - name: Install allure report
       run: npm install -D allure-playwright
-    - name: Check tms.config.json exists
+    - name: Debug environment
       run: |
-        ls -la
-        cat ./tms.config.json
+        echo "TMS_PRIVATE_TOKEN is ${TMS_PRIVATE_TOKEN:+set}"
+      env:
+        TMS_PRIVATE_TOKEN: ${{ secrets.TMS_PRIVATE_TOKEN }}
     - name: Run Playwright tests
       env: 
         TMS_PRIVATE_TOKEN: ${{ secrets.TMS_PRIVATE_TOKEN }}
