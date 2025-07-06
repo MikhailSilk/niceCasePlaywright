@@ -20,15 +20,13 @@ jobs:
       run: npx playwright install --with-deps
     - name: Install allure report
       run: npm install -D allure-playwright
-    - name: npm install testit-adapter-playwright
-      run: npm install testit-adapter-playwright
     - name: Debug Configuration ID
       run: echo "TMS_CONFIGURATION_ID=${{ secrets.TMS_CONFIGURATION_ID }}"
     - name: Run Playwright tests
       env: 
         TMS_PRIVATE_TOKEN: ${{ secrets.TMS_PRIVATE_TOKEN }}
         TMS_URL: ${{ secrets.TMS_URL }}
-        TMS_PROJECT_ID: ${{ secrets.TMS_PROJECT_ID }}
+        # TMS_PROJECT_ID: ${{ secrets.TMS_PROJECT_ID }}
         TMS_CONFIGURATION_ID: ${{ secrets.TMS_CONFIGURATION_ID }}
         TMS_TEST_RUN_NAME: ${{ secrets.TMS_TEST_RUN_NAME }}
         TMS_ADAPTER_MODE: 2
