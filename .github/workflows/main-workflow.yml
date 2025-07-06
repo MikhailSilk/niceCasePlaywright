@@ -34,7 +34,10 @@ jobs:
     - name: Run Playwright tests
       env: 
         TMS_PRIVATE_TOKEN: ${{ secrets.TMS_PRIVATE_TOKEN }}
-        TMS_CONFIG_FILE: ./tms.config.json
+        TMS_URL: ${{ secrets.TMS_URL }}
+        TMS_PROJECT_ID: ${{ secrets.TMS_PROJECT_ID }}
+        TMS_CONFIGURATION_ID: ${{ secrets.TMS_CONFIGURATION_ID }}
+        TMS_TEST_RUN_NAME: ${{ secrets.TMS_TEST_RUN_NAME }}
       run: npx playwright test fast.spec.ts
     - name: Allure report
       run: npm run allure:generate
