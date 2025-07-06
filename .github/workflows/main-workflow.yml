@@ -25,7 +25,8 @@ jobs:
         echo "TMS_PRIVATE_TOKEN is ${TMS_PRIVATE_TOKEN:+set}"
       env:
         TMS_PRIVATE_TOKEN: ${{ secrets.TMS_PRIVATE_TOKEN }}
-    - run: cat $TMS_CONFIG_FILE
+    - name: Check tms.config.json
+      run: cat ${{ github.workspace }}/tms.config.json
     - run: echo "CWD is $(pwd)"
     - run: ls -la
     - name: Prepare .env for Test IT
@@ -33,7 +34,7 @@ jobs:
     - name: Run Playwright tests
       env: 
         TMS_PRIVATE_TOKEN: ${{ secrets.TMS_PRIVATE_TOKEN }}
-        TMS_CONFIG_FILE: ${{ github.workspace }}/tms.config.json
+        TMS_CONFIG_FILE: ./tms.config.json
       run: npx playwright test fast.spec.ts
     - name: Allure report
       run: npm run allure:generate
