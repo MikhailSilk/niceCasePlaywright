@@ -26,10 +26,10 @@ jobs:
       env: 
         TMS_PRIVATE_TOKEN: ${{ secrets.TMS_PRIVATE_TOKEN }}
         TMS_URL: ${{ secrets.TMS_URL }}
-        # TMS_PROJECT_ID: ${{ secrets.TMS_PROJECT_ID }}
+        TMS_PROJECT_ID: ${{ secrets.TMS_PROJECT_ID }}
         TMS_CONFIGURATION_ID: ${{ secrets.TMS_CONFIGURATION_ID }}
         TMS_TEST_RUN_NAME: ${{ secrets.TMS_TEST_RUN_NAME }}
-        TMS_ADAPTER_MODE: 2
+        # TMS_ADAPTER_MODE: 2
       run: npx playwright test fast.spec.ts
     - name: Allure report
       run: npm run allure:generate
