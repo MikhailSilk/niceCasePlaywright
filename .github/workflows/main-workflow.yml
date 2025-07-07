@@ -31,7 +31,7 @@ jobs:
         TMS_CONFIGURATION_ID: ${{ secrets.TMS_CONFIGURATION_ID }}
         TMS_TEST_RUN_NAME: ${{ secrets.TMS_TEST_RUN_NAME }}
         # TMS_ADAPTER_MODE: 2
-      run: npx playwright test fast.spec.ts
+      run: npm playwright test fast.spec.ts
     - name: Allure report
       run: npm run allure:generate
     - uses: actions/upload-artifact@v4
