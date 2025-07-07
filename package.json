@@ -5,7 +5,8 @@
   "scripts": {
     "allure:generate": "allure generate \"./allure-results\" --clean",
     "allure:open": "allure open \"./allure-report\"",
-    "playwright:test": "playwright test fast.spec.ts"
+    "playwright:test": "playwright test fast.spec.ts",
+    "playwright:install": "playwright install --with-deps"
   },
   "keywords": [],
   "author": "",
