@@ -17,7 +17,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      run: npm playwright install --with-deps
     - name: Install allure report
       run: npm install -D allure-playwright
     - name: Debug Configuration ID
