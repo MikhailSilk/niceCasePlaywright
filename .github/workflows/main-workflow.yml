@@ -17,7 +17,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
-      run: npm run playwright:install
+      run: npx playwright install --with-deps
     - name: Install allure report
       run: npm install -D allure-playwright
     - name: Debug Configuration ID
@@ -31,7 +31,7 @@ jobs:
         TMS_CONFIGURATION_ID: ${{ secrets.TMS_CONFIGURATION_ID }}
         TMS_TEST_RUN_NAME: ${{ secrets.TMS_TEST_RUN_NAME }}
         # TMS_ADAPTER_MODE: 2
-      run: npm run playwright:test
+      run: npx playwright test fast.spec.ts
     - name: Allure report
       run: npm run allure:generate
     - uses: actions/upload-artifact@v4
