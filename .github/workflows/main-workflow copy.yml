@@ -1,0 +1,50 @@
+name: Allure adapter
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  test:
+    name: Playwright jobs
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Install allure report
+      run: npm install -D allure-playwright
+    - name: Debug environment
+      run: |
+        echo "TMS_PRIVATE_TOKEN is ${TMS_PRIVATE_TOKEN:+set}"
+      env:
+        TMS_PRIVATE_TOKEN: ${{ secrets.TMS_PRIVATE_TOKEN }}
+    - name: Check tms.config.json
+      run: cat ${{ github.workspace }}/tms.config.json
+    - run: echo "CWD is $(pwd)"
+    - run: ls -la
+    - name: Prepare .env for Test IT
+      run: echo "TMS_PRIVATE_TOKEN=${{ secrets.TMS_PRIVATE_TOKEN }}" >> .env
+    - name: Run Playwright tests
+      env: 
+        TMS_PRIVATE_TOKEN: ${{ secrets.TMS_PRIVATE_TOKEN }}
+        TMS_URL: ${{ secrets.TMS_URL }}
+        TMS_PROJECT_ID: ${{ secrets.TMS_PROJECT_ID }}
+        TMS_CONFIGURATION_ID: ${{ secrets.TMS_CONFIGURATION_ID }}
+        TMS_TEST_RUN_NAME: ${{ secrets.TMS_TEST_RUN_NAME }}
+        TMS_ADAPTER_MODE: 2
+      run: npx playwright test fast.spec.ts
+    - name: Allure report
+      run: npm run allure:generate
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: allure-report
+        path: allure-report/
+        retention-days: 30
