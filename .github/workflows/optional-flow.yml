@@ -1,10 +1,6 @@
 name: Optional deploy flow
 on:
   workflow_dispatch:
-  push:
-    branches: [ optional-flow ]
-  pull_request:
-    branches: [ optional-flow  ]
 jobs:
   test:
     name: Prod job
