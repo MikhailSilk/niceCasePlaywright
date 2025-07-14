@@ -1,9 +1,6 @@
 name: Playwright Tests
 on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
+  workflow_dispatch:
 jobs:
   test:
     name: Playwright jobs
@@ -20,9 +17,17 @@ jobs:
       run: npx playwright install --with-deps
     - name: Install allure report
       run: npm install -D allure-playwright
-    - name: Debug Configuration ID
-      run: echo "TMS_CONFIGURATION_ID=${{ secrets.TMS_CONFIGURATION_ID }}"
-    - uses: actions/checkout@v3
+    - name: Debug environment
+      run: |
+        echo "TMS_PRIVATE_TOKEN is ${TMS_PRIVATE_TOKEN:+set}"
+      env:
+        TMS_PRIVATE_TOKEN: ${{ secrets.TMS_PRIVATE_TOKEN }}
+    - name: Check tms.config.json
+      run: cat ${{ github.workspace }}/tms.config.json
+    - run: echo "CWD is $(pwd)"
+    - run: ls -la
+    - name: Prepare .env for Test IT
+      run: echo "TMS_PRIVATE_TOKEN=${{ secrets.TMS_PRIVATE_TOKEN }}" >> .env
     - name: Run Playwright tests
       env: 
         TMS_PRIVATE_TOKEN: ${{ secrets.TMS_PRIVATE_TOKEN }}
@@ -30,7 +35,7 @@ jobs:
         TMS_PROJECT_ID: ${{ secrets.TMS_PROJECT_ID }}
         TMS_CONFIGURATION_ID: ${{ secrets.TMS_CONFIGURATION_ID }}
         TMS_TEST_RUN_NAME: ${{ secrets.TMS_TEST_RUN_NAME }}
-        # TMS_ADAPTER_MODE: 2
+        TMS_ADAPTER_MODE: 2
       run: npx playwright test fast.spec.ts
     - name: Allure report
       run: npm run allure:generate
