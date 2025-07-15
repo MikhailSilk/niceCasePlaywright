@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "allure:generate": "allure generate \"./allure-results\" --clean",
-    "allure:open": "allure open \"./allure-report\""
+    "allure:open": "allure open \"./allure-report\"",
+    "playwright:test": "playwright test fast.spec.ts",
+    "playwright:install": "playwright install --with-deps"
   },
   "keywords": [],
   "author": "",
@@ -15,5 +17,8 @@
     "@types/node": "^22.10.6",
     "allure-commandline": "^2.34.1",
     "allure-playwright": "^3.3.0"
+  },
+  "dependencies": {
+    "testit-adapter-playwright": "^3.2.6-TMS-5.3"
   }
 }
