@@ -2,9 +2,9 @@ name: Optional deploy flow
 on:
   workflow_dispatch:
   push:
-    branches: [ prod ]
+    branches: [ optional-flow ]
   pull_request:
-    branches: [ prod ]
+    branches: [ optional-flow ]
 jobs:
   test:
     name: Prod job
@@ -17,13 +17,25 @@ jobs:
         node-version: lts/*
     - name: Install dependencies
       run: npm ci
+    - name: Install testit-importer-allure
+      run: pip install testit-importer-allure
+    - name: testit configiration
+      run: |
+        testit --url ${{ secrets.TMS_URL }}
+        testit --privatetoken ${{ secrets.TMS_PRIVATE_TOKEN }}
+        testit --projectid ${{ secrets.TMS_PROJECT_ID }}
+        testit --configurationid ${{ secrets.TMS_CONFIGURATION_ID }}
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
       run: npx playwright test main-page.spec.ts
+    - name: Allure report
+      run: npm run allure:generate
+    - name: allure-results
+      run: testit --resultsdir allure-results --testrunname allure-reports
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
-        name: playwright-report
-        path: playwright-report/
+        name: allure-report
+        path: allure-report/
         retention-days: 30
