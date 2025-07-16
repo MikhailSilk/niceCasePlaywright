@@ -1,4 +1,4 @@
-name: Allure adapter
+name: main-workflow-original
 on:
   push:
     branches: [ main ]
