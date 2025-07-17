@@ -1,4 +1,4 @@
-name: Playwright Tests
+name: Main workflow
 on:
   workflow_dispatch:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 jobs:
   test:
-    name: Playwright jobs
+    name: Prod job
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -16,22 +16,23 @@ jobs:
       with:
         node-version: lts/*
     - name: Install dependencies
-      run: npm ci
+      run: |
+        npm ci
+        pip install testit-importer-allure
+    - name: TestIT configiration
+      run: |
+        testit --url ${{ secrets.TMS_URL }}
+        testit --privatetoken ${{ secrets.TMS_PRIVATE_TOKEN }}
+        testit --projectid ${{ secrets.TMS_PROJECT_ID }}
+        testit --configurationid ${{ secrets.TMS_CONFIGURATION_ID }}
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Install allure report
-      run: npm install -D allure-playwright
     - name: Run Playwright tests
-      env: 
-        TMS_PRIVATE_TOKEN: ${{ secrets.TMS_PRIVATE_TOKEN }}
-        TMS_URL: ${{ secrets.TMS_URL }}
-        TMS_PROJECT_ID: ${{ secrets.TMS_PROJECT_ID }}
-        TMS_CONFIGURATION_ID: ${{ secrets.TMS_CONFIGURATION_ID }}
-        TMS_TEST_RUN_NAME: ${{ secrets.TMS_TEST_RUN_NAME }}
-        TMS_ADAPTER_MODE: 2
-      run: npx playwright test fast.spec.ts
-    - name: Allure report
+      run: npx playwright test main-page.spec.ts
+    - name: Generate allure report
       run: npm run allure:generate
+    - name: Import allure report in TestIT
+      run: testit --resultsdir allure-results --testrunname allure-reports
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:

@@ -1,6 +1,9 @@
-name: Playwright Tests Original
+name: main-workflow-original
 on:
-  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 jobs:
   test:
     name: Playwright jobs
